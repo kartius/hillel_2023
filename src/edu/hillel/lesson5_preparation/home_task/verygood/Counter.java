@@ -1,4 +1,4 @@
-package edu.hillel.lesson5_preparation.home_task.notbad;
+package edu.hillel.lesson5_preparation.home_task.verygood;
 
 public class Counter {
     private int animalsCount;
