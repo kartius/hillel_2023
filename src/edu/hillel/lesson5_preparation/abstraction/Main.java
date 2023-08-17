@@ -19,5 +19,22 @@ public class Main {
             }
         };
         System.out.println(car.getClass());
+
+
+        Car teslaModelX = new Car() {
+            @Override
+            int getSpeed() {
+                System.out.println("Tesla model X");
+                return 150;
+            }
+        };
+
+        Car deoMatiz = new Car() {
+            @Override
+            int getSpeed() {
+                System.out.println("Deo Matiz");
+                return 60;
+            }
+        };
     }
 }
