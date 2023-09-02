@@ -1,7 +1,5 @@
 package edu.hillel.lesson9.extended_generics;
 
-import java.util.Arrays;
-
 public class Camera extends Product implements Comparable<Camera>{
 
 

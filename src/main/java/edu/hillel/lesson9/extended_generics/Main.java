@@ -1,7 +1,5 @@
 package edu.hillel.lesson9.extended_generics;
 
-import edu.hillel.lesson8.C;
-
 import java.util.ArrayList;
 import java.util.List;
 
