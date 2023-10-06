@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Account {
-    private Lock lock = new ReentrantLock();
+    private ReentrantLock lock = new ReentrantLock();
 
     private int balance;
     private int id;
@@ -35,7 +35,7 @@ public class Account {
                 '}';
     }
 
-    public Lock getLock() {
+    public ReentrantLock getLock() {
         return lock;
     }
 }

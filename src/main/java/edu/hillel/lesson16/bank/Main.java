@@ -3,6 +3,7 @@ package edu.hillel.lesson16.bank;
 import edu.hillel.lesson8.A;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
@@ -28,36 +29,40 @@ public class Main {
 
 
     static void transfer(Account account1, Account account2, int amount) throws InterruptedException {
+        AtomicInteger atomicInteger = new AtomicInteger();
+        atomicInteger.incrementAndGet();
 
         if (account1.getBalance() < amount) {
             throw new RuntimeException("Can't be sent");
         }
         System.out.println("Trying to lock account " + account1);
         try {
-            if (account1.getLock().tryLock(1, TimeUnit.SECONDS)) {
-                Thread.sleep(100);
+            if (account1.getLock().tryLock()) {
                 System.out.println("Account is locked " + account1);
                 System.out.println("Trying to lock account " + account2);
                 try {
-                    if (account2.getLock().tryLock(1, TimeUnit.SECONDS)) {
+                    if (account2.getLock().tryLock(100, TimeUnit.MILLISECONDS)) {
                         System.out.println("Account is locked " + account2);
-                        Thread.sleep(100);
                         account1.withdraw(amount);
                         account2.deposit(amount);
                         System.out.println("Money transfer was successfully");
                     } else {
-                        System.out.println("Can't get a lock");
+                        System.out.println("Can't get a lock "+account2);
                     }
                 }
                 finally {
-                    account2.getLock().unlock();
+                    if (account2.getLock().isHeldByCurrentThread()) {
+                        account2.getLock().unlock();
+                    }
                 }
             } else {
-                System.out.println("Can't get a lock");
+                System.out.println("Can't get a lock "+account1);
             }
         }
         finally {
-            account1.getLock().unlock();
+            if (account1.getLock().isHeldByCurrentThread()) {
+                account1.getLock().unlock();
+            }
         }
     }
 
