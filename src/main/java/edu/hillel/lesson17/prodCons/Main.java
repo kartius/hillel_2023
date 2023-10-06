@@ -11,14 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
         LinkedBlockingQueue<Integer> queue = new LinkedBlockingQueue<>();
-        List<Thread> producers;
-        List<Thread> consumers;
-        producers = IntStream.range(0, 10)
-                .mapToObj(i -> new Thread(() -> IntStream.range(0, 10).forEach(n -> queue.add(randomValue()))))
-                .collect(Collectors.toList());
-        consumers = IntStream.range(0, 5)
-                .mapToObj(i -> new Thread(() -> IntStream.range(0, 10).forEach(n -> System.out.println(queue.poll()))))
-                .collect(Collectors.toList());
+        List<Thread> producers = IntStream.range(0, 10)
+                .mapToObj(i -> new Thread(() -> IntStream.range(0, 10).forEach(n -> queue.add(randomValue())))).toList();
+        List<Thread> consumers = IntStream.range(0, 5)
+                .mapToObj(i -> new Thread(() -> IntStream.range(0, 10).forEach(n -> System.out.println(queue.poll())))).toList();
         producers.forEach(Thread::start);
         consumers.forEach(Thread::start);
     }
