@@ -31,7 +31,7 @@ DELETE FROM students WHERE name='Vlad';
 CREATE TABLE hillel_groups (
                                id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                                name VARCHAR(256) NOT NULL
-)
+);
 
 
 ALTER TABLE students
